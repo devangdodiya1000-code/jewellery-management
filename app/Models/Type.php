@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Type extends Model
+{
+    Protected $fillable = [
+        'name',
+        'image',
+        'status',
+    ];
+
+    public function products() {
+        return $this->hasMany(Product::class, 'type_id');
+    }
+}
