@@ -2064,13 +2064,26 @@
       </ul>
 
       <!-- Right Icons -->
-      <div class="nav-icons d-flex align-items-center gap-1">
-        <button class="nav-icon-btn" title="Search">
-          <i class="bi bi-search"></i>
-        </button>
-        <button class="nav-icon-btn" title="Wishlist">
-          <i class="bi bi-heart"></i>
-        </button>
+        <div class="nav-icons d-flex align-items-center gap-1">
+
+        <div class="position-relative" id="navSearchWrap">
+          <button class="nav-icon-btn" title="Search" id="navSearchBtn" aria-expanded="false" aria-controls="navSearchPanel">
+            <i class="bi bi-search"></i>
+          </button>
+
+          <div id="navSearchPanel" class="d-none" style="position:absolute; right:0; top:48px; width:min(360px, 80vw); z-index:2000;">
+            <div style="background: rgba(8,8,8,0.97); border:1px solid rgba(212,175,55,0.2); border-radius:12px; backdrop-filter: blur(20px); overflow:hidden;">
+              <div style="padding:12px 12px 10px; border-bottom:1px solid rgba(212,175,55,0.14);">
+                <input id="navSearchInput" type="text" placeholder="Search jewellery..." autocomplete="off"
+                  style="width:100%; min-height:44px; background: rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.18); border-radius:10px; padding:0 14px; color:#fff; outline:none; font-family: var(--font-sans);" />
+              </div>
+              <div id="navSearchResults" style="max-height:320px; overflow:auto;">
+                <div style="padding:12px 14px; color: rgba(255,255,255,0.55);">Type to search...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button class="nav-icon-btn cart-btn" title="Cart" id="cartBtn" style="position:relative;" aria-controls="cartDrawer" aria-expanded="false">
           <i class="bi bi-bag"></i>
           <span class="cart-badge" id="cartBadge">0</span>
@@ -2098,8 +2111,8 @@
                 <button type="submit"><span class="cat-dot"></span>Log Out</button>
               </form>
             @else
-              <a href="{{ route('login') }}"><span class="cat-dot"></span>Customer Login</a>
-              <a href="{{ route('register') }}"><span class="cat-dot"></span>Create Account</a>
+<a href="{{ route('customer.login') }}"><span class="cat-dot"></span>Customer Login</a>
+              <a href="{{ route('customer.register') }}"><span class="cat-dot"></span>Create Account</a>
             @endauth
           </div>
         </div>
@@ -2134,8 +2147,8 @@
         <button type="submit">Log Out</button>
       </form>
     @else
-      <a href="{{ route('login') }}">Customer Login</a>
-      <a href="{{ route('register') }}">Create Account</a>
+<a href="{{ route('customer.login') }}">Customer Login</a>
+      <a href="{{ route('customer.register') }}">Create Account</a>
     @endauth
   </div>
 
@@ -2710,7 +2723,96 @@
         e.stopPropagation();
       });
 
+      /* NAV SEARCH (AJAX) */
+      let navSearchTimer = null;
+      const $navSearchBtn = $('#navSearchBtn');
+      const $navSearchPanel = $('#navSearchPanel');
+      const $navSearchInput = $('#navSearchInput');
+      const $navSearchResults = $('#navSearchResults');
+
+      function openNavSearch() {
+        $navSearchPanel.removeClass('d-none');
+        $navSearchBtn.attr('aria-expanded', 'true');
+        setTimeout(() => $navSearchInput.trigger('focus'), 0);
+      }
+
+      function closeNavSearch() {
+        $navSearchPanel.addClass('d-none');
+        $navSearchBtn.attr('aria-expanded', 'false');
+        $navSearchResults.html('<div style="padding:12px 14px; color: rgba(255,255,255,0.55);">Type to search...</div>');
+      }
+
+      $navSearchBtn.on('click', function (e) {
+        e.stopPropagation();
+        const isOpen = !$navSearchPanel.hasClass('d-none');
+        if (isOpen) closeNavSearch();
+        else openNavSearch();
+      });
+
+      $(document).on('click', function (e) {
+        if ($navSearchPanel.hasClass('d-none')) return;
+        if ($(e.target).closest('#navSearchWrap').length) return;
+        closeNavSearch();
+      });
+
+      $(document).on('keydown', function (e) {
+        if (e.key === 'Escape') closeNavSearch();
+      });
+
+      $navSearchInput.on('input', function () {
+        const q = ($navSearchInput.val() || '').trim();
+        clearTimeout(navSearchTimer);
+
+        if (q.length < 2) {
+          $navSearchResults.html('<div style="padding:12px 14px; color: rgba(255,255,255,0.55);">Type at least 2 characters...</div>');
+          return;
+        }
+
+        navSearchTimer = setTimeout(function () {
+          $navSearchResults.html('<div style="padding:12px 14px; color: rgba(255,255,255,0.55);">Searching...</div>');
+
+          $.ajax({
+            url: "{{ route('home.search') }}",
+            type: 'GET',
+            data: { q },
+            success: function (response) {
+              if (response.status) $navSearchResults.html(response.html);
+            },
+            error: function () {
+              $navSearchResults.html('<div style="padding:12px 14px; color: rgba(255,255,255,0.55);">Search failed. Please try again.</div>');
+            }
+          });
+        }, 300);
+      });
+
+      $(document).on('click', '.search-result-item', function () {
+        const productId = $(this).data('product-id');
+        if (!productId) return;
+
+        let url = "{{ route('home.view', ':id') }}";
+        url = url.replace(':id', productId);
+
+        $.ajax({
+          url: url,
+          type: 'GET',
+          success: function (response) {
+            if (response.status) {
+              $('#modalContainer').html(response.html);
+              let ModalEl = document.getElementById('exampleModal');
+              let modal = new bootstrap.Modal(ModalEl);
+              modal.show();
+
+
+            }
+          }
+        });
+
+        closeNavSearch();
+      });
+
+
       $(document).on('click', function () {
+
         $('.nav-dropdown.open')
           .removeClass('open')
           .find('.dropdown-toggle-link')

@@ -30,8 +30,8 @@ return [
     | which utilizes session storage plus the Eloquent user provider.
     |
     | All authentication guards have a user provider, which defines how the
-    | users are actually retrieved out of your database or other storage
-    | system used by the application. Typically, Eloquent is utilized.
+    | users are actually retrieved out of the database or other storage
+    | system used by your application. Typically, Eloquent is utilized.
     |
     | Supported: "session"
     |
@@ -39,6 +39,11 @@ return [
 
     'guards' => [
         'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'customer' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -51,7 +56,7 @@ return [
     |
     | All authentication guards have a user provider, which defines how the
     | users are actually retrieved out of your database or other storage
-    | system used by the application. Typically, Eloquent is utilized.
+    | system used by your application. Typically, Eloquent is utilized.
     |
     | If you have multiple user tables or models you may configure multiple
     | providers to represent the model / table. These providers may then
@@ -115,3 +120,4 @@ return [
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
 ];
+

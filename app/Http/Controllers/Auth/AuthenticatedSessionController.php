@@ -31,6 +31,7 @@ class AuthenticatedSessionController extends Controller
         $user = $request->user();
 
         if ($user->isAdmin()) {
+            // redirect admin to normal HTML page (dashboard). JSON routes like types.get are for AJAX only.
             return redirect()->intended(route('dashboard', absolute: false));
         }
 
@@ -44,10 +45,13 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
+        // prevent cross-redirect issues
+        $request->session()->forget('url.intended');
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/admin/login');
     }
 }

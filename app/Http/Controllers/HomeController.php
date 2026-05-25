@@ -7,9 +7,42 @@ use Illuminate\Http\Request;
 use Stripe\Exception\ApiErrorException;
 use Stripe\StripeClient;
 
+use Illuminate\Support\Str;
+
+
 class HomeController extends Controller
 {
+    public function searchProducts(Request $request)
+    {
+        $validated = $request->validate([
+            'q' => 'required|string|min:1|max:255',
+        ]);
+
+        $q = trim($validated['q']);
+
+        $products = Product::with('type')
+            ->where('status', 1)
+            ->where(function ($query) use ($q) {
+                $query->where('name', 'LIKE', '%' . $q . '%')
+                    ->orWhere('metal_type', 'LIKE', '%' . $q . '%')
+                    ->orWhere('short_description', 'LIKE', '%' . $q . '%')
+                    ->orWhere('description', 'LIKE', '%' . $q . '%');
+            })
+            ->orderBy('id', 'desc')
+            ->limit(8)
+            ->get();
+
+        $html = view('products.ajax_search_results', compact('products'))->render();
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'Search results fetched successfully.',
+            'html' => $html,
+        ]);
+    }
+
     public function index() {
+
         $products = Product::with('type')
             ->where('status', 1)
             ->get();

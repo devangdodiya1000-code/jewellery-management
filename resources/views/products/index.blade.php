@@ -93,13 +93,11 @@
             },
             error: function(error) {
                 if(error.status == 422) {
-                    let errors = error..errors;
+                    let errors = error.errors;
 
                     $.each(errorsresponseJSON, function(key, value) {
                         $('.' + key + '_error').text(value[0]);
-                    });6
-
-
+                    });
                 }
             }
         });

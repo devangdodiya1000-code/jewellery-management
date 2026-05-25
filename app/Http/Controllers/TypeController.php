@@ -19,6 +19,8 @@ class TypeController extends Controller
         ]);
     }
 
+
+
     public function create() {
         $title = "Add Type Modal";
         $type = null;
