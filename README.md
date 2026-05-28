@@ -1,137 +1,240 @@
-Aurum Jewellery Management System
+# Aurum Jewellery Management System
 
-A modern Jewellery Management System built with Laravel 12.
+A modern Jewellery Management System built with Laravel 12.  
 This project includes authentication using Laravel Breeze, an admin panel for managing categories and products, and a product listing page with category-wise filtering and global search functionality.
 
-Features
-Frontend Features
-Product listing by category
-Global product search/filter
-Responsive UI
-User authentication
-Admin Panel Features
-Category CRUD
-Create Category
-Update Category
-Delete Category
-View Categories
-Product CRUD
-Create Product
-Update Product
-Delete Product
-View Products
-Authentication
-Laravel Breeze Authentication
-Login
-Registration
-Password protection
-Tech Stack
-PHP 8.2+
-Laravel 12
-Laravel Breeze
-MySQL
-Node.js 20+
-Vite
-Bootstrap / Tailwind CSS
-System Requirements
+---
+
+# Features
+
+## Frontend Features
+
+- Product listing by category
+- Global product search/filter
+- Responsive UI
+- User authentication system
+
+## Admin Panel Features
+
+### Category Management
+- Create Category
+- Update Category
+- Delete Category
+- View Categories
+
+### Product Management
+- Create Product
+- Update Product
+- Delete Product
+- View Products
+
+## Authentication
+
+This project uses Laravel Breeze for authentication.
+
+Features include:
+- Login
+- Registration
+- Logout
+- Password Protection
+
+---
+
+# Tech Stack
+
+- Laravel 12
+- PHP 8.2+
+- Laravel Breeze
+- MySQL
+- Node.js 20+
+- Vite
+- Tailwind CSS / Bootstrap
+
+---
+
+# System Requirements
 
 Before running this project, make sure your system has the following installed:
 
-Requirement	Version
-PHP	8.2+
-Composer	Latest
-Node.js	20+
-NPM	Latest
-MySQL	5.7+ / 8+
-Installation Guide
+| Requirement | Version |
+|---|---|
+| PHP | 8.2+ |
+| Composer | Latest |
+| Node.js | 20+ |
+| NPM | Latest |
+| MySQL | 5.7+ / 8+ |
+
+---
+
+# Installation Guide
 
 Follow the steps below to run the project on your local system.
 
-1. Clone the Repository
+---
+
+## 1. Clone the Repository
+
+```bash
 git clone <your-repository-url>
+```
 
 Move into the project directory:
 
+```bash
 cd aurum-jewellery-management
-2. Install PHP Dependencies
+```
+
+---
+
+## 2. Install PHP Dependencies
+
+```bash
 composer install
-3. Install Node Modules
+```
+
+---
+
+## 3. Install Node Modules
+
+```bash
 npm install
-4. Create Environment File
+```
 
-Copy the .env.example file and create a new .env file:
+---
 
+## 4. Create Environment File
+
+Copy the `.env.example` file and create a new `.env` file:
+
+```bash
 cp .env.example .env
-5. Generate Application Key
+```
+
+---
+
+## 5. Generate Application Key
+
+```bash
 php artisan key:generate
-6. Configure Database
+```
 
-Open the .env file and update your database credentials:
+---
 
+## 6. Configure Database
+
+Open the `.env` file and update your database credentials:
+
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=aurum_jewellery
 DB_USERNAME=root
 DB_PASSWORD=
-7. Run Database Migrations
+```
+
+---
+
+## 7. Run Database Migrations
+
+```bash
 php artisan migrate
-8. Start Development Server
+```
 
-Run Laravel server:
+---
 
+## 8. Start Development Server
+
+Run Laravel development server:
+
+```bash
 php artisan serve
+```
 
-In another terminal, run Vite:
+In another terminal, run Vite server:
 
+```bash
 npm run dev
-Default Application URLs
-Service	URL
-Laravel App	http://127.0.0.1:8000
-Vite Dev Server	http://127.0.0.1:5173
-Authentication Setup
+```
 
-This project uses Laravel Breeze for authentication.
+---
 
-Available authentication features:
+# Default Application URLs
 
-Login
-Register
-Logout
-Password Protection
-Admin Panel
+| Service | URL |
+|---|---|
+| Laravel App | http://127.0.0.1:8000 |
+| Vite Dev Server | http://127.0.0.1:5173 |
+
+---
+
+# Admin Panel
 
 The admin panel allows administrators to manage:
 
-Categories
-Add new categories
-Edit existing categories
-Delete categories
-View category list
-Products
-Add products
-Edit products
-Delete products
-View product list
-Product Listing Features
+## Categories
+
+- Add Categories
+- Edit Categories
+- Delete Categories
+- View Category List
+
+## Products
+
+- Add Products
+- Edit Products
+- Delete Products
+- View Product List
+
+---
+
+# Product Listing Features
 
 Users can:
 
-View products category-wise
-Search products using global filter/search
-Browse products easily
-Useful Commands
-Run Development Server
+- View products category-wise
+- Search products using global filter/search
+- Browse products easily
+
+---
+
+# Useful Commands
+
+## Run Laravel Server
+
+```bash
 php artisan serve
-Run Vite
+```
+
+## Run Vite Development Server
+
+```bash
 npm run dev
-Build Frontend Assets
+```
+
+## Build Frontend Assets
+
+```bash
 npm run build
-Run Migrations
+```
+
+## Run Migrations
+
+```bash
 php artisan migrate
-Clear Cache
+```
+
+## Clear Application Cache
+
+```bash
 php artisan optimize:clear
-Folder Structure
+```
+
+---
+
+# Project Folder Structure
+
+```bash
 app/
 bootstrap/
 config/
@@ -140,17 +243,37 @@ public/
 resources/
 routes/
 storage/
-Security
-Authentication handled using Laravel Breeze
-CSRF protection enabled
-Password hashing included by default
-Future Improvements
-Order Management
-Invoice Generation
-Customer Management
-Role & Permission Management
-Product Image Upload
-Dashboard Analytics
-Author
+tests/
+```
 
-Developed by Devang Dodiya
+---
+
+# Security Features
+
+- Laravel Breeze Authentication
+- CSRF Protection
+- Password Hashing
+- Protected Admin Routes
+
+---
+
+# Future Improvements
+
+- Order Management
+- Invoice Generation
+- Customer Management
+- Product Image Upload
+- Dashboard Analytics
+- Role & Permission Management
+
+---
+
+# Author
+
+Developed by **Devang Dodiya**
+
+---
+
+# License
+
+This project is open-source and available for learning and development purposes.
