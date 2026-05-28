@@ -36,8 +36,6 @@ Route::prefix('admin')->middleware(['auth:web', 'role:admin'])->group(function (
     Route::get('products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-
-
 // Frontend Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/home/search', [HomeController::class, 'searchProducts'])->name('home.search');
