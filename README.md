@@ -287,5 +287,4 @@ Developed by **Devang Dodiya**
 <img width="1920" height="1008" alt="Screenshot from 2026-05-28 09-44-04" src="https://github.com/user-attachments/assets/6f01a9b5-13c6-46d6-a2d0-b817398ab945" />
 <img width="1920" height="1008" alt="Screenshot from 2026-05-28 09-44-23" src="https://github.com/user-attachments/assets/3b6c058a-92a8-47c8-8191-2c05cc4a5001" />
 <img width="1920" height="1008" alt="Screenshot from 2026-05-28 09-44-31" src="https://github.com/user-attachments/assets/ab076568-8b0b-42d2-b65f-c52701a78f42" />
-<img width="1920" height="1008" alt="Screenshot from 2026-05-28 09-42-07" src="https://github.com/user-attachments/assets/77f746cc-a1cd-42e9-8cb7-7451f7314705" />
 
